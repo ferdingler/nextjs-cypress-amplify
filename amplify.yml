@@ -1,0 +1,27 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+test:
+  phases:
+    test:
+      commands:
+        - npm run e2e:headless
+  artifacts:
+    baseDirectory: cypress
+    configFilePath: '**/mochawesome.json'
+    files:
+      - '**/*.png'
+      - '**/*.mp4'
